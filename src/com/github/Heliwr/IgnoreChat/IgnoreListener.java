@@ -22,26 +22,24 @@ class IgnoreListener implements Listener {
         Map<String, List<String>> ignoreList = plugin.getList();
         String p = event.getPlayer().getName();
         Player player = event.getPlayer();
-        //        List<String> playerIgnores = ignoreList.get(p);
 
         for (Iterator<Player> it = event.getRecipients().iterator(); it.hasNext();) {
             Player r = it.next();
             List<String> recipientIgnores = ignoreList.get(r.getName());
-//            boolean playerIgnoresRecipient = playerIgnores != null && playerIgnores.contains(r.getName());
             boolean recipientIgnoresPlayer = false;
             
-            for(String i : recipientIgnores) {
-            	if(i.startsWith("group.")) {
-            		if(player.hasPermission(i) && !player.hasPermission("ignore.block")) {
-            			recipientIgnoresPlayer = true;
-            		}
-            	}
-            }
-            if(!recipientIgnoresPlayer) {
-                recipientIgnoresPlayer = recipientIgnores != null && (recipientIgnores.contains(p));            	
-            }
-            if (recipientIgnoresPlayer) {
-                it.remove();
+            if(recipientIgnores != null) {
+                for(String i : recipientIgnores) {
+                	if(i.startsWith("group.")) {
+                		recipientIgnoresPlayer = player.hasPermission(i) && !player.hasPermission("ignore.block");
+                	}
+                }
+                if(!recipientIgnoresPlayer) {
+                    recipientIgnoresPlayer = recipientIgnores.contains(p);            	
+                }
+                if (recipientIgnoresPlayer) {
+                    it.remove();
+                }
             }
         }
     }
@@ -60,18 +58,19 @@ class IgnoreListener implements Listener {
 			
 			for (Player r : plugin.getServer().getOnlinePlayers()) {
 	            List<String> recipientIgnores = ignoreList.get(r.getName());
-//	            boolean recipientIgnoresPlayer = recipientIgnores != null && (recipientIgnores.contains(p) || (recipientIgnores.contains("group.default") && player.hasPermission("group.default")));
 	            boolean recipientIgnoresPlayer = false;
 	            
-	            for(String i : recipientIgnores) {
-	            	if(i.startsWith("group.")) {
-	            		if(player.hasPermission(i) && !player.hasPermission("ignore.block")) {
-	            			recipientIgnoresPlayer = true;
-	            		}
-	            	}
-	            }
-	            if(!recipientIgnoresPlayer) {
-	                recipientIgnoresPlayer = recipientIgnores != null && (recipientIgnores.contains(p));            	
+	            if(recipientIgnores != null) {
+		            for(String i : recipientIgnores) {
+		            	if(i.startsWith("group.")) {
+		            		if(player.hasPermission(i) && !player.hasPermission("ignore.block")) {
+		            			recipientIgnoresPlayer = true;
+		            		}
+		            	}
+		            }
+		            if(!recipientIgnoresPlayer) {
+		                recipientIgnoresPlayer = recipientIgnores.contains(p);            	
+		            }	            	
 	            }
 	            if (!recipientIgnoresPlayer) {
 	            	r.sendMessage(ChatColor.LIGHT_PURPLE + "* " + player.getName() + " " + s);
@@ -112,23 +111,25 @@ class IgnoreListener implements Listener {
 			}	
             
 			List<String> recipientIgnores = ignoreList.get(r.getName());
-//			boolean recipientIgnoresPlayer = recipientIgnores != null && (recipientIgnores.contains(p) || (recipientIgnores.contains("group.default") && player.hasPermission("group.default")));
             boolean recipientIgnoresPlayer = false;
             
-            for(String i : recipientIgnores) {
-            	if(i.startsWith("group.")) {
-            		if(player.hasPermission(i) && !player.hasPermission("ignore.block")) {
-            			recipientIgnoresPlayer = true;
-            		}
-            	}
-            }
-            if(!recipientIgnoresPlayer) {
-                recipientIgnoresPlayer = recipientIgnores != null && (recipientIgnores.contains(p));            	
-            }			
-            if (recipientIgnoresPlayer) {
-				player.sendMessage(ChatColor.RED + "Player" + name + "is ignoring you.");
-            	event.setCancelled(true);
-            	return;
+            if(recipientIgnores != null) {
+                for(String i : recipientIgnores) {
+                	if(i.startsWith("group.")) {
+                		if(player.hasPermission(i) && !player.hasPermission("ignore.block")) {
+                			recipientIgnoresPlayer = true;
+                		}
+                	}
+                }
+                if(!recipientIgnoresPlayer) {
+                    recipientIgnoresPlayer = recipientIgnores != null && (recipientIgnores.contains(p));            	
+                }			
+                if (recipientIgnoresPlayer) {
+    				player.sendMessage(ChatColor.RED + "Player" + name + "is ignoring you.");
+                	event.setCancelled(true);
+                	return;
+                }
+            	
             }
 		}
     }

@@ -1,5 +1,5 @@
 name: IgnoreChat
-main: com.github.Heliwr.IgnoreChat.IgnoreChat
+main: com.github.Heliwr.IgnoreChat.Ignore
 version: 1.2
 author: feildmaster, Heliwr
 commands:
