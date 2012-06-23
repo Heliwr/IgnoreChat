@@ -1,7 +1,8 @@
 name: IgnoreChat
 main: com.github.Heliwr.IgnoreChat.Ignore
-version: 1.2
+version: 1.4
 author: feildmaster, Heliwr
+softdepend: [CommandBook]
 commands:
   ignore:
     description: Ignore a player or group
