@@ -101,7 +101,7 @@ class IgnoreListener implements Listener {
 				event.setCancelled(true);
 				Bukkit.getConsoleSender().sendMessage(ChatColor.LIGHT_PURPLE + "* " + player.getName() + " " + s);				
 			}
-		} else if(cmd.equalsIgnoreCase("/msg ") || cmd.equalsIgnoreCase("/tell ")) {
+		} else if(cmd.equalsIgnoreCase("/msg") || cmd.equalsIgnoreCase("/tell")) {
 			if(!message.contains(" ")) {
 				player.sendMessage("ErrMsgFormat");
 				event.setCancelled(true);
