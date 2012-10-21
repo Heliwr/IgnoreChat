@@ -4,12 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.sk89q.commandbook.CommandBook;
 
 public class Ignore extends JavaPlugin {
     private Map<String, List<String>> ignoreList = new HashMap<String, List<String>>();
+	public Map<Player, Boolean> SocialSpy = new HashMap<Player, Boolean>();
     CommandBook commandbook =  (CommandBook) Bukkit.getServer().getPluginManager().getPlugin("CommandBook");    
     boolean cmdbook = false;
     
@@ -24,6 +26,7 @@ public class Ignore extends JavaPlugin {
         // Setup commands
         getCommand("ignore").setExecutor(new IgnoreCommand(this));
         getCommand("ignore-list").setExecutor(new ListCommand(this));
+        getCommand("socialspy").setExecutor(new SocialSpyCommand(this));
     }
 
     public Map<String, List<String>> getList() {

@@ -6,7 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
-import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import com.sk89q.commandbook.CommandBook;
@@ -20,7 +20,7 @@ class IgnoreListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerChat(PlayerChatEvent event) {
+    public void onPlayerChat(AsyncPlayerChatEvent event) {
         if(event.isCancelled()) return;
 
         Map<String, List<String>> ignoreList = plugin.getList();
@@ -116,6 +116,8 @@ class IgnoreListener implements Listener {
 
 			if(name.substring(0, 1).equalsIgnoreCase("@")) {
 				r = plugin.getServer().getPlayerExact(name.substring(1));
+			} else if (name.equalsIgnoreCase("!")) {
+				return;
 			} else {
 				recipients = plugin.getServer().matchPlayer(name);
 				if(recipients.size() > 1) {
@@ -150,6 +152,14 @@ class IgnoreListener implements Listener {
                 	return;
                 }
             }
+            
+            for(Player r1 : plugin.getServer().getOnlinePlayers()) {
+            	if(plugin.SocialSpy.containsKey(r1) && player != r1 && r != r1) {
+            		if(plugin.SocialSpy.get(r1)) {
+    	            	r1.sendMessage(ChatColor.RED + "[" + player.getName() + "]: " + cmd + " " + message);            			
+            		}
+	            }
+			}
 		}
     }
 }

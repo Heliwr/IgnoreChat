@@ -1,6 +1,6 @@
 name: IgnoreChat
 main: com.github.Heliwr.IgnoreChat.Ignore
-version: 1.4.1
+version: 1.4.3
 author: feildmaster, Heliwr
 softdepend: [CommandBook]
 commands:
@@ -8,8 +8,12 @@ commands:
     description: Ignore a player or group
   ignore-list:
     description: List ignored players
+  socialspy:
+    description: Listen in on private messages
 permissions:
   ignore.use:
     default: true
   ignore.block:
+    default: op
+  ignore.socialspy:
     default: op
