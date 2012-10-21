@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 
 import com.sk89q.commandbook.CommandBook;
 import com.sk89q.commandbook.session.AdministrativeSession;
@@ -46,6 +47,17 @@ class IgnoreListener implements Listener {
                 }
             }
         }
+    }
+    
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onPlayerJoin(PlayerJoinEvent event) {
+    	Player player = event.getPlayer();
+    	if(player.hasPermission("ignore.socialspy")) {
+    		if(!plugin.SocialSpy.containsKey(player)) {
+        		plugin.SocialSpy.put(player, true);
+                player.sendMessage("Social Spy enabled, type /socialspy to toggle.");    			
+    		}
+    	}
     }
     
 	@EventHandler(priority = EventPriority.LOWEST)
